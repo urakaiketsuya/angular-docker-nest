@@ -4,12 +4,12 @@
   <ul class="px-4">
     <li 
       class="flex flex-row justify-between my-1 capitalize" 
-      *ngFor="let item of items"
+      *ngFor="let task of tasks"
     >
-      <p>{{item.description}}</p>
+      <p>{{task.description}}</p>
       <button 
         class="bg-red-400 rounded-2xl py-.5 px-2"
-        (click)="removeItem(item)"
+        (click)="removeItem(task)"
       >-</button>
     </li>
   

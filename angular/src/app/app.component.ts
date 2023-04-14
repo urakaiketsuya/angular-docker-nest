@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TaskService } from './task.service'
 
 @Component({
   selector: 'app-root',
@@ -6,34 +7,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
+
 export class AppComponent {
-  title = 'todo';
+  // title = 'todo';
+  // filter: 'all' | 'active' | 'done' = 'all';
 
-  filter: 'all' | 'active' | 'done' = 'all';
+  tasks = new Array<any>();
+  
+  constructor(public taskService: TaskService) { }
 
-  allItems = [
-    { description: 'eat', done: true },
-    { description: 'sleep', done: false },
-    { description: 'play', done: false },
-    { description: 'laugh', done: false },
-  ];
-
-  get items() {
-    if (this.filter === 'all') {
-      return this.allItems;
-    }
-    return this.allItems.filter((item) => this.filter === 'done' ? item.done : !item.done);
+  ngOnInit(): void {
+    this.taskService.getTasks().subscribe(response => {
+        this.tasks = response;
+    });
   }
 
   addItem(description: string) {
-    this.allItems.unshift({
+    this.tasks.unshift({
       description,
       done: false
     });
   }
 
   removeItem(task: any) {
-    this.allItems = this.allItems.filter(function( item ) {
+    this.tasks = this.tasks.filter(function( item ) {
       return item.description !== task.description;
   });
   }
