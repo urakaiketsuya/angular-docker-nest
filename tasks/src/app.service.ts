@@ -16,7 +16,7 @@ export class AppService {
   }
   createTask(name: string): Tasks[] {
     const task = { id: this.tasks.length + 1, name, completed: false };
-    this.tasks = [...this.tasks, { ...task}];
+    this.tasks = [...this.tasks, { ...task }];
     fs.writeFileSync('tasks.json', JSON.stringify(this.tasks));
     return this.tasks;
   }
